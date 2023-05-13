@@ -24,6 +24,10 @@ async function findByRoomId(roomId: number) {
   });
 }
 
+async function findAll() {
+  return prisma.booking.findMany({});
+}
+
 async function findByUserId(userId: number) {
   return prisma.booking.findFirst({
     where: {
@@ -55,6 +59,7 @@ const bookingRepository = {
   findByRoomId,
   findByUserId,
   upsertBooking,
+  findAll,
 };
 
 export default bookingRepository;

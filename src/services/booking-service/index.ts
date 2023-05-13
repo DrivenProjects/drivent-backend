@@ -25,6 +25,12 @@ async function checkValidBooking(roomId: number) {
   if (room.capacity <= bookings.length) throw cannotBookingError();
 }
 
+async function getAllBookings() {
+  const roomsBooked = await bookingRepository.findAll();
+  if (!roomsBooked) throw notFoundError();
+  return roomsBooked;
+}
+
 async function getBooking(userId: number) {
   const booking = await bookingRepository.findByUserId(userId);
   if (!booking) throw notFoundError();
@@ -62,6 +68,7 @@ const bookingService = {
   changeBookingRoomById,
   checkEnrollmentTicket,
   checkValidBooking,
+  getAllBookings,
 };
 
 export default bookingService;
