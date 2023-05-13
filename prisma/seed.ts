@@ -1,5 +1,6 @@
-import { PrismaClient } from '@prisma/client';
-import dayjs from 'dayjs';
+// import { PrismaClient } from "@prisma/client";
+import { Prisma, PrismaClient, TicketType } from '@prisma/client';
+import dayjs from "dayjs";
 const prisma = new PrismaClient();
 
 async function main() {
@@ -16,6 +17,19 @@ async function main() {
     });
   }
 
+  let ticketType: TicketType[] | Prisma.BatchPayload = await prisma.ticketType.findMany();
+
+  if (ticketType.length === 0) {
+    ticketType = await prisma.ticketType.createMany({
+      data: [
+        { name: 'Online', price: 10000, isRemote: true, includesHotel: false },
+        { name: 'Presencial Sem Hotel', price: 25000, isRemote: false, includesHotel: false },
+        { name: 'Presencial Com Hotel', price: 60000, isRemote: false, includesHotel: true },
+      ],
+    });
+  }
+
+  console.log({ event, ticketType });
   let users = await prisma.user.createMany({
     data: [
       {
@@ -109,6 +123,7 @@ async function main() {
   });
 
   console.log({ event });
+  console.log({ ticketType });
   console.log({ users });
   console.log({ hotels });
   console.log({ rooms });
