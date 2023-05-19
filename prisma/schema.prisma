@@ -53,6 +53,7 @@ model Enrollment {
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
   Ticket    Ticket[]
+  Activity  Activity[]
 }
 
 model Address {
@@ -137,6 +138,29 @@ model Booking {
   roomId    Int
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+model ActivityType {
+  id           Int        @id @default(autoincrement())
+  name         String     @db.VarChar(255)
+  schedules    String     @db.VarChar(255)
+  capacity     Int
+  activityDate String     @db.VarChar(255)
+  place        String     @db.VarChar(255)
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+  Activity     Activity[]
+  @@index([activityDate])
+}
+
+model Activity {
+  id             Int          @id @default(autoincrement())
+  activityTypeId Int
+  ActivityType   ActivityType @relation(fields: [activityTypeId], references: [id])
+  enrollmentId   Int
+  Enrollment     Enrollment   @relation(fields: [enrollmentId], references: [id])
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
 }
 
 model Teste {

@@ -2,7 +2,7 @@ import { enrollmentWithAddressReturn, findTicketByEnrollmentIdReturn, getTicketT
 import { notFoundError } from '@/errors';
 
 import enrollmentRepository from '@/repositories/enrollment-repository';
-import ticketsRepository from '@/repositories/tickets-repository';
+import ticketsRepository from '@/repositories/ticket-repository';
 import ticketService from '@/services/tickets-service';
 
 describe('getTicketTypes function', () => {
