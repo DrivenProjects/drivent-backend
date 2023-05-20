@@ -4,7 +4,7 @@ import { cannotBookingError } from '@/errors/cannot-booking-error';
 import bookingRepository from '@/repositories/booking-repository';
 import enrollmentRepository from '@/repositories/enrollment-repository';
 import roomRepository from '@/repositories/room-repository';
-import ticketsRepository from '@/repositories/tickets-repository';
+import ticketsRepository from '@/repositories/ticket-repository';
 
 async function checkEnrollmentTicket(userId: number) {
   const enrollment = await enrollmentRepository.findWithAddressByUserId(userId);

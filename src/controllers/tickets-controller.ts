@@ -6,7 +6,7 @@ import { InputTicketBody } from '@/protocols';
 
 export async function getTicketTypes(req: AuthenticatedRequest, res: Response, next: NextFunction): Promise<Response> {
   try {
-    const ticketTypes = await ticketService.getTicketType();
+    const ticketTypes = await ticketService.getTicketTypes();
     return res.status(httpStatus.OK).send(ticketTypes);
   } catch (e) {
     next(e);

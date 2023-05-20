@@ -16,7 +16,7 @@ import enrollmentRepository from '@/repositories/enrollment-repository';
 
 import roomRepository from '@/repositories/room-repository';
 import { cannotBookingError } from '@/errors/cannot-booking-error';
-import ticketsRepository from '@/repositories/tickets-repository';
+import ticketsRepository from '@/repositories/ticket-repository';
 
 describe('getBooking function', () => {
   it('should return the booking for the given user id', async () => {

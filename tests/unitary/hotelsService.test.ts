@@ -11,7 +11,7 @@ import { notFoundError } from '@/errors';
 import enrollmentRepository from '@/repositories/enrollment-repository';
 import { cannotListHotelsError } from '@/errors/cannot-list-hotels-error';
 import hotelRepository from '@/repositories/hotel-repository';
-import ticketsRepository from '@/repositories/tickets-repository';
+import ticketsRepository from '@/repositories/ticket-repository';
 
 describe('listHotels function', () => {
   it('should return not found error', async () => {

@@ -1,5 +1,5 @@
 // import { PrismaClient } from "@prisma/client";
-import { Prisma, PrismaClient, TicketType } from '@prisma/client';
+import { ActivityType, Activity, Prisma, PrismaClient, TicketType } from '@prisma/client';
 import dayjs from "dayjs";
 const prisma = new PrismaClient();
 
@@ -30,40 +30,41 @@ async function main() {
   }
 
   console.log({ event, ticketType });
-  let users = await prisma.user.createMany({
-    data: [
-      {
-        email: ' user14@gmail.com',
-        password: '$2b$12$UB0p4GEYJXTXQ0a.c7SoFunwAZObdaArSjIoJUrAv2SU4ihj9XYa2',
-        createdAt: dayjs().toDate(),
-        updatedAt: '2023-05-09T20:02:57.276Z',
-      },
-      {
-        email: ' teste@gmail.com',
-        password: '$2b$12$UB0p4GEYJXTXQ0a.c7SoFunwAZObdaArSjIoJUrAv2SU4ihj9XYa2',
-        createdAt: dayjs().toDate(),
-        updatedAt: '2023-05-09T20:02:57.276Z',
-      },
-      {
-        email: ' teste2@gmail.com',
-        password: '$2b$12$UB0p4GEYJXTXQ0a.c7SoFunwAZObdaArSjIoJUrAv2SU4ihj9XYa2',
-        createdAt: dayjs().toDate(),
-        updatedAt: '2023-05-09T20:02:57.276Z',
-      },
-      {
-        email: ' teste3@gmail.com',
-        password: '$2b$12$UB0p4GEYJXTXQ0a.c7SoFunwAZObdaArSjIoJUrAv2SU4ihj9XYa2',
-        createdAt: dayjs().toDate(),
-        updatedAt: '2023-05-09T20:02:57.276Z',
-      },
-      {
-        email: ' teste4@gmail.com',
-        password: '$2b$12$UB0p4GEYJXTXQ0a.c7SoFunwAZObdaArSjIoJUrAv2SU4ihj9XYa2',
-        createdAt: dayjs().toDate(),
-        updatedAt: '2023-05-09T20:02:57.276Z',
-      },
-    ],
-  });
+
+  // let users = await prisma.user.createMany({
+  //   data: [
+  //     {
+  //       email: ' user14@gmail.com',
+  //       password: '$2b$12$UB0p4GEYJXTXQ0a.c7SoFunwAZObdaArSjIoJUrAv2SU4ihj9XYa2',
+  //       createdAt: dayjs().toDate(),
+  //       updatedAt: '2023-05-09T20:02:57.276Z',
+  //     },
+  //     {
+  //       email: ' teste@gmail.com',
+  //       password: '$2b$12$UB0p4GEYJXTXQ0a.c7SoFunwAZObdaArSjIoJUrAv2SU4ihj9XYa2',
+  //       createdAt: dayjs().toDate(),
+  //       updatedAt: '2023-05-09T20:02:57.276Z',
+  //     },
+  //     {
+  //       email: ' teste2@gmail.com',
+  //       password: '$2b$12$UB0p4GEYJXTXQ0a.c7SoFunwAZObdaArSjIoJUrAv2SU4ihj9XYa2',
+  //       createdAt: dayjs().toDate(),
+  //       updatedAt: '2023-05-09T20:02:57.276Z',
+  //     },
+  //     {
+  //       email: ' teste3@gmail.com',
+  //       password: '$2b$12$UB0p4GEYJXTXQ0a.c7SoFunwAZObdaArSjIoJUrAv2SU4ihj9XYa2',
+  //       createdAt: dayjs().toDate(),
+  //       updatedAt: '2023-05-09T20:02:57.276Z',
+  //     },
+  //     {
+  //       email: ' teste4@gmail.com',
+  //       password: '$2b$12$UB0p4GEYJXTXQ0a.c7SoFunwAZObdaArSjIoJUrAv2SU4ihj9XYa2',
+  //       createdAt: dayjs().toDate(),
+  //       updatedAt: '2023-05-09T20:02:57.276Z',
+  //     },
+  //   ],
+  // });
 
   let hotels = await prisma.hotel.createMany({
     data: [
@@ -122,9 +123,88 @@ async function main() {
     ],
   });
 
+  let activityType: ActivityType[] | Prisma.BatchPayload = await prisma.activityType.findMany();
+  if (activityType.length === 0) {
+    activityType = await prisma.activityType.createMany({
+      data: [
+        {
+          name: 'Teste: montando o PC ideal',
+          schedules: '12:00-14:00',
+          capacity: 20,
+          activityDate: 'Terça, 21/03',
+          place: 'Auditório Principal',
+        },
+        {
+          name: 'Minecraft: montando o PC ideal',
+          schedules: '12:00-14:00',
+          capacity: 20,
+          activityDate: 'Quarta, 22/03',
+          place: 'Auditório Principal',
+        },
+        {
+          name: 'Minecraft: montando o PC ideal',
+          schedules: '12:00-14:00',
+          capacity: 20,
+          activityDate: 'Quinta, 23/03',
+          place: 'Auditório Principal',
+        },
+        {
+          name: 'LoL: montando o PC ideal',
+          schedules: '10:00-13:00',
+          capacity: 15,
+          activityDate: 'Terça, 21/03',
+          place: 'Auditório Lateral',
+        },
+        {
+          name: 'LoL: montando o PC ideal',
+          schedules: '10:00-13:00',
+          capacity: 15,
+          activityDate: 'Quarta, 22/03',
+          place: 'Auditório Lateral',
+        },
+        {
+          name: 'LoL: montando o PC ideal',
+          schedules: '10:00-13:00',
+          capacity: 15,
+          activityDate: 'Quinta, 23/03',
+          place: 'Auditório Lateral',
+        },
+        {
+          name: 'Coding Workshop',
+          schedules: '18:00-20:00',
+          capacity: 0,
+          activityDate: 'Terça, 21/03',
+          place: 'Sala de Workshop',
+        },
+        {
+          name: 'Coding Workshop',
+          schedules: '18:00-20:00',
+          capacity: 10,
+          activityDate: 'Quarta, 22/03',
+          place: 'Sala de Workshop',
+        },
+        {
+          name: 'Coding Workshop',
+          schedules: '18:00-20:00',
+          capacity: 1,
+          activityDate: 'Quinta, 23/03',
+          place: 'Sala de Workshop',
+        },
+        {
+          name: 'Palestra de Encerramento',
+          schedules: '19:00-21:00',
+          capacity: 20,
+          activityDate: 'Quinta, 23/03',
+          place: 'Sala de Workshop',
+        },
+      ],
+    });
+  }
+
   console.log({ event });
   console.log({ ticketType });
-  console.log({ users });
+  console.log({ activityType})
+  // console.log({ users });
   console.log({ hotels });
   console.log({ rooms });
   console.log({ bookings });
